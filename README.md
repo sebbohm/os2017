@@ -4,7 +4,6 @@ BIC Sommer Semester 2017 Betriebssysteme
 
 Übernommen von Fmyschkin/os2017 
 
-os2017
 
 Kurze Anleitung zur Erstellung von Make und Doc
 
