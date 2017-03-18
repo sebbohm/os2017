@@ -20,3 +20,5 @@ Vorlage von fgrep genommen
 Im File doxygen.dcf alle fgreps mit myfind ausgetauscht.
 
 Ausführung folgenden Befehals im Directory des Source-Codes, des Makefiles und des doxygen.dcf: make doc 
+
+test
