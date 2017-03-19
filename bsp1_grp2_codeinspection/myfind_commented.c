@@ -171,7 +171,7 @@ static void do_dir(const char * dir_name, const char * const * parms)
  */
 static void do_parameter_check(const char * file_name, const char * const * parms)
 {
-	
+
 	int i = 2;
 	
 	
@@ -180,7 +180,11 @@ static void do_parameter_check(const char * file_name, const char * const * parm
 		{fprintf(stderr, "%s: Error opening path '%s': %s\n",parms[0],file_name,strerror(errno));
 			errno = 0;
 		}
-		
+
+/*
+ * ###14: <Warum ist "-nouser", "-print", "-ls" nicht Teil von do_parameter_check?>
+ *
+*/		
 		
 	while (parms[i]!= NULL)
 	
@@ -408,7 +412,10 @@ static void do_parameter_check(const char * file_name, const char * const * parm
 			
 			
 			
-			
+/*
+ * ###14: <Direkte (1 zu 1) Kopie des Codes aus do_parameter_check.>
+ *
+*/			
 			else if (strcmp(parms[i],"-user")==0)
 			
 				{
