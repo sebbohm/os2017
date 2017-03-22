@@ -1,3 +1,18 @@
-Durchlauf test-find.sh: Successful Tests: 49330 / Failes Tests: 6968
-
+Durchlauf default test-find.sh: Successful Tests: 49330 / Failes Tests: 6968
+---------------------------------------------------------
 2x Test aller Parameter - hätte auf 1x reduziert werden können. 1 zu 1 Kopie von -user in Funktion do_parameter_check und do_file
+---------------------------------------------------------
+Zu anfangs schwerer zu lesen da die meisten Funktionen in do_file (bzw. -user in do_file und do_parameter_check) implementiert sind. Ternary operators machen dies zu Beginn auch nicht lesbarer.
+---------------------------------------------------------
+Teils inkonsistente Klammerneinrückung. 
+zB. Zeile ab 355 	{fprintf(stderr, "%s: Error opening path '%s': %s\n",parms[0],file_name,strerror(errno));
+			errno = 0;
+			}
+    Zeile ab 365	{
+				fprintf(stderr,"%s input: -name Name -user User -path Pfad -type Typ -nouser -print -ls\n",parms[0]);
+				exit (EXIT_FAILURE);
+			}
+---------------------------------------------------------
+
+
+
