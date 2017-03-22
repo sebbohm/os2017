@@ -123,7 +123,7 @@ static void do_dir(const char * dir_name, const char * const * parms)
 	pDir=opendir(dir_name);
 	if (pDir == NULL) {fprintf(stderr, "%s: Error opening path '%s': %s\n",parms[0],dir_name,strerror(errno)); return;}
 	errno = 0;
-	
+	 
 	while ((current_dir = readdir(pDir)) != NULL)
 		{ 
 			if (((strcmp(current_dir->d_name,"."))&&(strcmp(current_dir->d_name,"..")))!=0)
@@ -179,12 +179,7 @@ static void do_parameter_check(const char * file_name, const char * const * parm
 	if (lstat(file_name,&statbuffer) == -1) 
 		{fprintf(stderr, "%s: Error opening path '%s': %s\n",parms[0],file_name,strerror(errno));
 			errno = 0;
-		}
-
-/*
- * ###14: <Warum ist "-nouser", "-print", "-ls" nicht Teil von do_parameter_check?>
- *
-*/		
+		}		
 		
 	while (parms[i]!= NULL)
 	
