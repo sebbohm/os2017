@@ -567,6 +567,10 @@ static void do_ls(struct stat statbuffer,const char * file_name, const char * co
 	 errno=0;
 	 
 	
+/*
+ * ###14: <Fprints und Fehlerprints würden zusammengefast die Lesbarkeit fördern und Codezeilen sparen!
+*/	
+	
 	 
     if (printf("  %6lu ",statbuffer.st_ino)<0) fprintf(stderr,"%s: Error printf\n",parms[0]);
     if (printf("%6lu ",statbuffer.st_blocks/2)<0) fprintf(stderr,"%s: Error printf\n",parms[0]);
