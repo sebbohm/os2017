@@ -568,11 +568,15 @@ static void do_ls(struct stat statbuffer,const char * file_name, const char * co
 	 
 	
 /*
- * ###14: <Fprints und Fehlerprints würden zusammengefast die Lesbarkeit fördern und Codezeilen sparen!
+ * ###14: <Fprints und Fehlerprints würden zusammengefast die Lesbarkeit fördern und Codezeilen sparen!>
 */	
 	
 	 
-    if (printf("  %6lu ",statbuffer.st_ino)<0) fprintf(stderr,"%s: Error printf\n",parms[0]);
+  if (printf("  %6lu ",statbuffer.st_ino)<0) fprintf(stderr,"%s: Error printf\n",parms[0]);
+/*
+ * ###14: <Blocksize bei Symbolic Links wird nicht behandelt.>
+*/		
+	
     if (printf("%6lu ",statbuffer.st_blocks/2)<0) fprintf(stderr,"%s: Error printf\n",parms[0]);
     if (printf(S_ISDIR(statbuffer.st_mode) ? "d" : S_ISLNK(statbuffer.st_mode)? "l":"-")<0) fprintf(stderr,"%s: Error printf\n",parms[0]);
     if (printf(statbuffer.st_mode & S_IRUSR ? "r" : "-")<0)fprintf(stderr,"%s: Error printf\n",parms[0]);
