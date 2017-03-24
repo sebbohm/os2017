@@ -1,3 +1,9 @@
+Code Inspection des Beispiels 1 von Partnergruppe 2 durch Gruppe 14.
+Christian Fuhry <ic16b055@technikum-wien.at>
+Maria Kanikova <ic16b002@technikum-wien.at>
+Sebastian Boehm <ic16b032@technikum-wien.at>
+2017/03/24
+
 Sämtliche Kommentare die durch die Partnergruppe 14 erstellt wurden sind im *.c File mit ###14 markiert.
 
 Durchlauf default test-find.sh: Successful Tests: 49330 / Failes Tests: 6968
