@@ -1,3 +1,5 @@
+Sämtliche Kommentare die durch die Partnergruppe 14 erstellt wurden sind im *.c File mit ###14 markiert.
+
 Durchlauf default test-find.sh: Successful Tests: 49330 / Failes Tests: 6968
 ---------------------------------------------------------
 2x Test aller Parameter - hätte auf 1x reduziert werden können. 1 zu 1 Kopie von -user in Funktion do_parameter_check und do_file
