@@ -8,7 +8,8 @@
 *
 * @date 2017/05
 * @todo 
-*
+* https://cis.technikum-wien.at/documents/bic/2/bes/semesterplan/lu/beispiel2.html
+* TAG DER ARBEIT (OS)
 */
 
 #include "mypopen.h"
