@@ -31,27 +31,25 @@ FILE * mypopen(const char * command, const char * type)
 {
 	
 	int fd[2];
-	
-
 	errno = 0;
+
+	if (*type != 'r' && *type != 'w' && command == NULL)
+	{
+		errno = EINVAL;		//Invalid argument (POSIX.1)
+		return NULL;
+	}
 
 	if (fp != NULL)
 	{
-		errno = EAGAIN;
+		errno = EAGAIN;		//Resource temporarily unavailable
 		return NULL;
 	}
-
-	if (command == NULL)
-	{
-		errno = EINVAL;
-		return NULL;
-	}
-
 
 	if (pipe(fd) < 0)
 	{
 		return NULL;
 	}
+	
 	
 
 	///////// working
@@ -62,11 +60,11 @@ FILE * mypopen(const char * command, const char * type)
 
 	switch (pid = fork())
 	{
-	case  -1:
+	case  -1:		//error
 
-	case  0:
+	case  0:		//Kindprozess
 
-	default:
+	default:		//Elternprozess
 	}
 
     //mypopen() muß zunächst eine Pipe einrichten (pipe(2)) 
