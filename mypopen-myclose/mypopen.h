@@ -1,4 +1,7 @@
 /**
+#ifndef MYPOPEN
+#define MYPOPEN
+
 
 * Beispiel 2
  
@@ -30,13 +33,8 @@
 /*
  * ------------------------------------------------------------- functions --
  */
-
-mypopen();
-
-
-mypclose();
+extern FILE *mypopen(const char *command, const char *type);
+extern int mypclose(FILE *stream);
 
 
-/*
- * =================================================================== eof ==
- */
+#endif //MYPOPEN
