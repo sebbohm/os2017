@@ -56,11 +56,12 @@ FILE * mypopen(const char * command, const char * type)
 
 
 
-
-
 	switch (pid = fork())
 	{
-	case  -1:		//error
+	case  -1:		close(fd[0]);	//close reading
+				close(fd[1]);	//close writing
+				return NULL;
+				break;		
 
 	case  0:		//Kindprozess
 
