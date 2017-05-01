@@ -17,11 +17,10 @@
  */
 
 
-#include <stdio.h>
 
 #include "mypopen.h"
 
-
+static FILE * fp = NULL;
 /**
  *
  * \Mit Hilfe der Funktionen mypopen() und mypclose() können Sie relativ einfach ein Shell-Kommando ausführen und das Ergebnis direkt in ein Programm einlesen und weiterverarbeiten bzw. Daten, aus einem Programm heraus, an dieses Kommando übergeben. 
@@ -29,14 +28,18 @@
 
  *
  */
-mypopen()
+FILE * mypopen(const char * command, const char * type)
 {
     
+ 
+   return
 }
 
-mypclose()
+int mypclose(FILE *stream)
 {
-    
+ 
+ 
+    return
 }
 
 
