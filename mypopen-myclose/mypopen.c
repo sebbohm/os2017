@@ -40,10 +40,59 @@ FILE * mypopen(const char * command, const char * type)
 
 int mypclose(FILE *stream)
 {
- 
- //Bei Aufruf von mypclose() soll der aufrufende Prozeß auf die Terminierung des Kindprozesses warten (waitpid(2)). 
- //Zur Vereinfachung soll immer nur höchstens eine Pipe mit mypopen() geöffnet werden können. 
- //Stellen Sie dies in ihrer Implementierung sicher. 
+	pid_t child_pid;
+	int status;
+	errno = 0;
+
+
+	if (fp == NULL)
+	{
+		errno = ECHILD;		// No child processes (POSIX.1)
+		return -1;
+	}
+	
+		
+	if (stream == NULL || fp != stream)
+	{
+		errno = EINVAL;		//Invalid argument (POSIX.1)
+		return -1;
+	}
+
+
+	if (fclose(stream) == EOF)
+	{
+		fp = NULL;
+		pid = -1;
+		return -1;
+	}
+
+	if (pid <= 0)
+	{
+		return -1;
+	}
+
+	while ((child_pid = waitpid(pid, &status, 0)) != pid)		// waitpid() wartet bis Kindprozess beendet (Wert: -1)
+	{
+		if (child_pid == -1)
+		{
+			if (errno == EINTR)		//Interrupted function call
+			{				
+				continue;
+			}
+			return -1;
+		}
+	}
+
+	pid = -1;
+	fp = NULL;
+
+	if (WIFEXITED(status))				//Makro: WIFEXITED(status) Ist TRUE, wenn sich ein Kindprozess normal beendet hat.
+	{	
+		return WEXITSTATUS(status);		//Makro: WEXITSTATUS(status) Genauer Rückgabewert vom Kindprozess
+	}
+
+	errno = ECHILD;		// No child processes (POSIX.1
    
-    return
+    return -1;
 }
+
