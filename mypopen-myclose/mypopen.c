@@ -39,7 +39,13 @@ FILE * mypopen(const char * command, const char * type)
 		errno = EINVAL;		//Invalid argument (POSIX.1)
 		return NULL;
 	}
-
+	
+	if (type[1] != '\0')
+	{
+		errno = EINVAL;
+		return NULL;
+	}
+	
 	if (fp != NULL)
 	{
 		errno = EAGAIN;		//Resource temporarily unavailable
@@ -53,13 +59,14 @@ FILE * mypopen(const char * command, const char * type)
 	
 	switch (type[0])
 	{
-	case 'r':	parent = 0;
+	case 'r':	parent = 0; 
 				child = 1;
 				break;
 	case 'w':	parent = 1;
 				child = 0;
 				break;
-	default:	return NULL;
+	default:	errno = EINVAL;
+				return NULL;
 	}
 
 	///////// working
@@ -76,10 +83,10 @@ FILE * mypopen(const char * command, const char * type)
 				if (dup2(fd[child], child) == -1)
 				{
 					close(fd[child]);
-					_Exit();
+					_exit(1);
 				}
-				execl("/bin/sh", "sh", "-c", command, (char)* NULL);
-				_Exit(); 
+				execl("/bin/sh", "sh", "-c", command, (char*) NULL);
+				_exit(127); 
 
 	default:	close(fd[child]);	//Elternprozess
 				if ((fp = fdopen(fd[parent], type)) == NULL) //NULL returned if error occured
@@ -158,3 +165,6 @@ int mypclose(FILE *stream)
     return -1;
 }
 
+/*
+ * =================================================================== eof ==
+ */
