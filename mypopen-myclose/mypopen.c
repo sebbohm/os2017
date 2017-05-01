@@ -16,33 +16,15 @@
  *
  */
 
-/*
- * -------------------------------------------------------------- includes --
- */
 
 #include <stdio.h>
 
 #include "mypopen.h"
 
-/*
- * --------------------------------------------------------------- defines --
- */
-
-/*
- * -------------------------------------------------------------- typedefs --
- */
-
-/*
- * --------------------------------------------------------------- globals --
- */
-
-/*
- * ------------------------------------------------------------- functions --
- */
 
 /**
  *
- * \Mit Hilfe der Funktionen mypopen() und mypclose() können Sie relativ einfach ein Shell-Kommando ausführen und das Ergebnis direkt in ein Programm einlesen und weiterverarbeiten bzw. Daten, aus einem Programm heraus, an dieses Kommando übergeben. 
+ * \Mit Hilfe der Funktionen mypopen() und mypclose() kÃ¶nnen Sie relativ einfach ein Shell-Kommando ausfÃ¼hren und das Ergebnis direkt in ein Programm einlesen und weiterverarbeiten bzw. Daten, aus einem Programm heraus, an dieses Kommando Ã¼bergeben. 
  *
 
  *
