@@ -13,13 +13,13 @@
 */
 
 #include "mypopen.h"
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/wait.h>
 #include <errno.h>
 
 static FILE * fp = NULL;
+static pid_t pid = -1;
 /**
  *
  * \Mit Hilfe der Funktionen mypopen() und mypclose() können Sie relativ einfach ein Shell-Kommando ausführen und das Ergebnis direkt in ein Programm einlesen und weiterverarbeiten bzw. Daten, aus einem Programm heraus, an dieses Kommando übergeben. 
