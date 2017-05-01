@@ -80,10 +80,14 @@ FILE * mypopen(const char * command, const char * type)
 				return NULL;		
 
 	case  0:	close(fd[parent]);	//Kindprozess
-				if (dup2(fd[child], child) == -1)
+				if (fd[child] != child)
 				{
+					if (dup2(fd[child], child) == -1)
+					{
+						close(fd[child]);
+						_exit(1);
+					}
 					close(fd[child]);
-					_exit(1);
 				}
 				execl("/bin/sh", "sh", "-c", command, (char*) NULL);
 				_exit(127); 
@@ -94,8 +98,7 @@ FILE * mypopen(const char * command, const char * type)
 					close (fd[parent]);
 					return NULL;
 				}
-				return fp;
-				
+				return fp;			
 	}
 
     //mypopen() muß zunächst eine Pipe einrichten (pipe(2)) 
@@ -112,7 +115,6 @@ int mypclose(FILE *stream)
 	pid_t child_pid;
 	int status;
 	errno = 0;
-
 
 	if (fp == NULL)
 	{
@@ -148,14 +150,16 @@ int mypclose(FILE *stream)
 			{				
 				continue;
 			}
+			pid = -1;
+			fp = NULL;
 			return -1;
 		}
 	}
-
+	
 	pid = -1;
 	fp = NULL;
 
-	if (WIFEXITED(status))				//Makro: WIFEXITED(status) Ist TRUE, wenn sich ein Kindprozess normal beendet hat.
+	if (WIFEXITED(status) != 0)				//Makro: WIFEXITED(status) Ist TRUE, wenn sich ein Kindprozess normal beendet hat.
 	{	
 		return WEXITSTATUS(status);		//Makro: WEXITSTATUS(status) Genauer Rückgabewert vom Kindprozess
 	}
@@ -166,5 +170,5 @@ int mypclose(FILE *stream)
 }
 
 /*
- * =================================================================== eof ==
+ * ------------------------------------------------------------------- eof --
  */
