@@ -1,24 +1,22 @@
 /**
-
+*
 * Beispiel 2
- 
-
+*
 * @author Maria Kanikova <ic16b002@technikum-wien.at>
 * @author Christian Fuhry <ic16b055@technikum-wien.at>
 * @author Sebastian Boehm <ic16b032@technikum-wien.at>
-
- * @date 2017/05
- *
- * @version 0 
- *
- * @todo 
- * 
- *
- */
-
-
+*
+* @date 2017/05
+* @todo 
+*
+*/
 
 #include "mypopen.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <errno.h>
 
 static FILE * fp = NULL;
 /**
@@ -41,9 +39,3 @@ int mypclose(FILE *stream)
  
     return
 }
-
-
-
-/*
- * =================================================================== eof ==
- */
