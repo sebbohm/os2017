@@ -31,9 +31,10 @@ FILE * mypopen(const char * command, const char * type)
 {
 	
 	int fd[2];
+	int parent, child;
 	errno = 0;
 
-	if (*type != 'r' && *type != 'w' && command == NULL)
+	if (type[0] != 'r' && type[0] != 'w' && command == NULL)
 	{
 		errno = EINVAL;		//Invalid argument (POSIX.1)
 		return NULL;
@@ -50,7 +51,16 @@ FILE * mypopen(const char * command, const char * type)
 		return NULL;
 	}
 	
-	
+	switch (type[0])
+	{
+	case 'r':	parent = 0;
+				child = 1;
+				break;
+	case 'w':	parent = 1;
+				child = 0;
+				break;
+	default:	return NULL;
+	}
 
 	///////// working
 
@@ -58,14 +68,27 @@ FILE * mypopen(const char * command, const char * type)
 
 	switch (pid = fork())
 	{
-	case  -1:		close(fd[0]);	//close reading
-				close(fd[1]);	//close writing
-				return NULL;
-				break;		
+	case  -1:	close(fd[parent]);	//close parent pipe
+				close(fd[child]);	//close child pipe
+				return NULL;		
 
-	case  0:		//Kindprozess
+	case  0:	close(fd[parent]);	//Kindprozess
+				if (dup2(fd[child], child) == -1)
+				{
+					close(fd[child]);
+					_Exit();
+				}
+				execl("/bin/sh", "sh", "-c", command, (char)* NULL);
+				_Exit(); 
 
-	default:		//Elternprozess
+	default:	close(fd[child]);	//Elternprozess
+				if ((fp = fdopen(fd[parent], type)) == NULL) //NULL returned if error occured
+				{
+					close (fd[parent]);
+					return NULL;
+				}
+				return fp;
+				
 	}
 
     //mypopen() muß zunächst eine Pipe einrichten (pipe(2)) 
@@ -74,7 +97,7 @@ FILE * mypopen(const char * command, const char * type)
     //Verwenden Sie - wie die Funktion popen(3) - zum Ausführen des Kommandos die Shell sh(1). 
     //Als letztes muß mypopen() von einem Filedeskriptor einen passenden FILE * mit fdopen(3) erzeugen. 
  
-   return ///working
+   return NULL; ///working
 }
 
 int mypclose(FILE *stream)
