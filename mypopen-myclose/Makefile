@@ -13,8 +13,8 @@
 ## ------------------------------------------------------------- variables --
 ##
 
-CC=gcc52
-CFLAGS=-DDEBUG -Wall -Werror -Wextra -Wstrict-prototypes -pedantic -fno-common -O3 -g -std=gnu11
+CC=gcc
+CFLAGS=-DDEBUG -Wall -pedantic -Werror -Wextra -g -O3
 CP=cp
 CD=cd
 MV=mv
