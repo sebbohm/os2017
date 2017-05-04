@@ -13,7 +13,7 @@
 ## ------------------------------------------------------------- variables --
 ##
 
-CC=gcc
+CC=gcc52
 CFLAGS=-DDEBUG -Wall -pedantic -Werror -Wextra -g -O3
 CP=cp
 CD=cd
@@ -41,10 +41,6 @@ all: mypopen
 mypopen: $(OBJECTS)
 	$(CC) -o popentest $(OBJECTS) -lpopentest
 	$(CC) -o test-pipe $(OBJECTS) -ltest-pipe
-
-local: $(OBJECTS)
-	$(CC) $(CFLAGS) -m32 -o popentest $(OBJECTS) libpopentest.a
-	$(CC) $(CFLAGS) -m32 -o test-pipe $(OBJECTS) libtest-pipe.a
 
 clean:
 	$(RM) *.o *~ mypopen
