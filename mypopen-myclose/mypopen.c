@@ -1,5 +1,7 @@
 /**
 *
+* @file mypopen.c
+* Betriebssysteme mypopen/myclose c File.
 * Beispiel 2
 *
 * @author Maria Kanikova <ic16b002@technikum-wien.at>
@@ -7,9 +9,11 @@
 * @author Sebastian Boehm <ic16b032@technikum-wien.at>
 *
 * @date 2017/05
-* @todo 
-* https://cis.technikum-wien.at/documents/bic/2/bes/semesterplan/lu/beispiel2.html
-* TAG DER ARBEIT (OS)
+*
+*/
+
+/*
+* -------------------------------------------------------------- includes --
 */
 
 #include "mypopen.h"
@@ -18,15 +22,40 @@
 #include <sys/wait.h>
 #include <errno.h>
 
+/*
+* --------------------------------------------------------------- defines --
+*/
+
+/*
+* -------------------------------------------------------------- typedefs --
+*/
+
+/*
+* --------------------------------------------------------------- globals --
+*/
+
 static FILE * fp = NULL;
 static pid_t pid = -1;
-/**
- *
- * \Mit Hilfe der Funktionen mypopen() und mypclose() können Sie relativ einfach ein Shell-Kommando ausführen und das Ergebnis direkt in ein Programm einlesen und weiterverarbeiten bzw. Daten, aus einem Programm heraus, an dieses Kommando übergeben. 
- *
 
- *
- */
+/*
+* ------------------------------------------------------------- functions --
+*/
+
+/**
+*
+* \brief mypopen part of exercise 2
+*
+* This function creates a fork of the set command.
+* Depending on read or write choice behavior of function changes.
+*
+* \param command to be executed and forked command
+* \param type I/O mode read or write
+*
+* \return NULL or fp
+* \retval NULL if erroneous or no pointer to return
+* \retval fp filepointer of successfull fork
+*
+*/
 FILE * mypopen(const char * command, const char * type)
 {
 	
@@ -69,10 +98,6 @@ FILE * mypopen(const char * command, const char * type)
 				return NULL;
 	}
 
-	///////// working
-
-
-
 	switch (pid = fork())
 	{
 	case  -1:	close(fd[parent]);	//close parent pipe
@@ -100,16 +125,24 @@ FILE * mypopen(const char * command, const char * type)
 				}
 				return fp;			
 	}
-
-    //mypopen() muß zunächst eine Pipe einrichten (pipe(2)) 
-    //und dann einen Kindprozeß generieren (fork(2)). Im Kindprozeß ist das richtige Ende der Pipe ("r" oder "w") mit stdin bzw. stdout zu assoziieren 
-    //(dup2(2)) und das im 1. Argument spezifizierte Kommando auszuführen (execl(3) oder execv(3)). 
-    //Verwenden Sie - wie die Funktion popen(3) - zum Ausführen des Kommandos die Shell sh(1). 
-    //Als letztes muß mypopen() von einem Filedeskriptor einen passenden FILE * mit fdopen(3) erzeugen. 
- 
-   return NULL; ///working
+	
+   return NULL; //working
 }
 
+/**
+*
+* \brief mypclose part of exercise 2
+*
+* This function closes a child process.
+* Returns -1 on different errors and waits for the child process to be closed.
+*
+* \param stream to be closed child process
+*
+* \return -1 or WEXITSTATUS(status)
+* \retval -1 if erroneous or no pointer to return
+* \retval WEXITSTATUS(status) returnvalue of closed child process
+*
+*/
 int mypclose(FILE *stream)
 {
 	pid_t child_pid;
