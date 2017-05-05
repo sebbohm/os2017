@@ -2,7 +2,7 @@
 *
 * @file mypopen.c
 * Betriebssysteme mypopen/myclose c File.
-* Beispiel 2
+* Beispiel 2 
 *
 * @author Maria Kanikova <ic16b002@technikum-wien.at>
 * @author Christian Fuhry <ic16b055@technikum-wien.at>
