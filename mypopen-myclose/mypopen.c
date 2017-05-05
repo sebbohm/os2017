@@ -65,13 +65,13 @@ FILE * mypopen(const char * command, const char * type)
 
 	if (type[0] != 'r' && type[0] != 'w' && command == NULL)
 	{
-		errno = EINVAL;		//Invalid argument (POSIX.1)
+		errno = EINVAL;		//Invalid argument
 		return NULL;
 	}
 	
-	if (type[1] != '\0')
+	if (type[1] != '\0')	
 	{
-		errno = EINVAL;
+		errno = EINVAL;		//Invalid argument
 		return NULL;
 	}
 	
@@ -126,7 +126,7 @@ FILE * mypopen(const char * command, const char * type)
 				return fp;			
 	}
 	
-   return NULL; //working
+   return NULL; 
 }
 
 /**
@@ -151,14 +151,14 @@ int mypclose(FILE *stream)
 
 	if (fp == NULL)
 	{
-		errno = ECHILD;		// No child processes (POSIX.1)
+		errno = ECHILD;		//No child processes 
 		return -1;
 	}
 	
 		
 	if (stream == NULL || fp != stream)
 	{
-		errno = EINVAL;		//Invalid argument (POSIX.1)
+		errno = EINVAL;		//Invalid argument 
 		return -1;
 	}
 
@@ -175,7 +175,7 @@ int mypclose(FILE *stream)
 		return -1;
 	}
 
-	while ((child_pid = waitpid(pid, &status, 0)) != pid)		// waitpid() wartet bis Kindprozess beendet (Wert: -1)
+	while ((child_pid = waitpid(pid, &status, 0)) != pid)		//waitpid() wartet bis Kindprozess beendet (Wert: -1)
 	{
 		if (child_pid == -1)
 		{
@@ -197,7 +197,7 @@ int mypclose(FILE *stream)
 		return WEXITSTATUS(status);		//Makro: WEXITSTATUS(status) Genauer Rückgabewert vom Kindprozess
 	}
 
-	errno = ECHILD;		// No child processes (POSIX.1
+	errno = ECHILD;		//No child processes
    
     return -1;
 }
