@@ -117,8 +117,8 @@ FILE * mypopen(const char * command, const char * type)
 				execl("/bin/sh", "sh", "-c", command, (char*) NULL);
 				_exit(127); 
 
-	default:	close(fd[child]);	//parentprocess
-				if ((fp = fdopen(fd[parent], type)) == NULL) //NULL returned if error occured
+	default:	close(fd[child]);								//parentprocess
+				if ((fp = fdopen(fd[parent], type)) == NULL)	//NULL returned if error occured
 				{
 					close (fd[parent]);
 					return NULL;
@@ -151,7 +151,7 @@ int mypclose(FILE *stream)
 
 	if (fp == NULL)
 	{
-		errno = ECHILD;		// No child processes (POSIX.1)
+		errno = ECHILD;		//No child processes (POSIX.1)
 		return -1;
 	}
 	
@@ -175,11 +175,11 @@ int mypclose(FILE *stream)
 		return -1;
 	}
 
-	while ((child_pid = waitpid(pid, &status, 0)) != pid)		// waitpid() wartet bis Kindprozess beendet (Wert: -1)
+	while ((child_pid = waitpid(pid, &status, 0)) != pid)		//waitpid() wartet bis Kindprozess beendet (Wert: -1)
 	{
 		if (child_pid == -1)
 		{
-			if (errno == EINTR)		//Interrupted function call
+			if (errno == EINTR)									//Interrupted function call
 			{				
 				continue;
 			}
@@ -194,10 +194,10 @@ int mypclose(FILE *stream)
 
 	if (WIFEXITED(status) != 0)				//Makro: WIFEXITED(status) Ist TRUE, wenn sich ein Kindprozess normal beendet hat.
 	{	
-		return WEXITSTATUS(status);		//Makro: WEXITSTATUS(status) Genauer Rückgabewert vom Kindprozess
+		return WEXITSTATUS(status);			//Makro: WEXITSTATUS(status) Genauer Rückgabewert vom Kindprozess
 	}
 
-	errno = ECHILD;		// No child processes (POSIX.1
+	errno = ECHILD;							//No child processes (POSIX.1)
    
     return -1;
 }
