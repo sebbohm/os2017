@@ -40,7 +40,7 @@ extern FILE *mypopen(const char *command, const char *type);
 extern int mypclose(FILE *stream);
 
 
-#endif //MYPOPEN_H
+#endif		//MYPOPEN_H
 
 /*
  * ------------------------------------------------------------------- eof --
