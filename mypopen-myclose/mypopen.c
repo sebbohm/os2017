@@ -45,10 +45,10 @@ static pid_t pid = -1;
 *
 * \brief mypopen part of exercise 2
 *
-* This function creates a fork of the set command.
-* Depending on read or write choice behavior of function changes.
+* This function creates a pipe and a child process.
+* Depending on read or write choice the end of the pipe is associated with stdin or stdout.
 *
-* \param command to be executed and forked command
+* \param command to be executed and forked
 * \param type I/O mode read or write
 *
 * \return NULL or fp
@@ -104,7 +104,7 @@ FILE * mypopen(const char * command, const char * type)
 				close(fd[child]);	//close child pipe
 				return NULL;		
 
-	case  0:	close(fd[parent]);	//Kindprozess
+	case  0:	close(fd[parent]);	//childprocess
 				if (fd[child] != child)
 				{
 					if (dup2(fd[child], child) == -1)
@@ -117,7 +117,7 @@ FILE * mypopen(const char * command, const char * type)
 				execl("/bin/sh", "sh", "-c", command, (char*) NULL);
 				_exit(127); 
 
-	default:	close(fd[child]);	//Elternprozess
+	default:	close(fd[child]);	//parentprocess
 				if ((fp = fdopen(fd[parent], type)) == NULL) //NULL returned if error occured
 				{
 					close (fd[parent]);
@@ -126,14 +126,14 @@ FILE * mypopen(const char * command, const char * type)
 				return fp;			
 	}
 	
-   return NULL; //working
+   return NULL;
 }
 
 /**
 *
 * \brief mypclose part of exercise 2
 *
-* This function closes a child process.
+* This function waits for the termination of a child process.
 * Returns -1 on different errors and waits for the child process to be closed.
 *
 * \param stream to be closed child process
