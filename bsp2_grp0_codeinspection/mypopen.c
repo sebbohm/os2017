@@ -47,6 +47,11 @@
 /*
  * --------------------------------------------------------------- globals --
  */
+ 
+  /*
+  *  ###14: Initialisierung der globalen Variablen fehlt.
+  */
+  
 	static int child_pid;
 	static FILE *given_fp;
 /*
