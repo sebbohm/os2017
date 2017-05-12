@@ -1,0 +1,30 @@
+Code Inspection des Beispiels 2 von Partnergruppe 0 durch Gruppe 14.
+
+Christian Fuhry <ic16b055@technikum-wien.at>
+Maria Kanikova <ic16b002@technikum-wien.at>
+Sebastian Boehm <ic16b032@technikum-wien.at>
+
+2017/05/12
+
+Saemtliche Kommentare die durch die Partnergruppe 14 erstellt wurden sind im *.c File mit ###14 markiert.
+
+1. Test: Durchlauf popentest: Successful 
+2. Test: Durchlauf test-pipe: successful
+
+
+-------------------------------------------
+Makefile: Der 2. Test fehlt im Makefile!
+
+mypopen: $(OBJECTS)
+
+$(CC) -o test-pipe $(OBJECTS) -ltest-pipe
+-------------------------------------------
+Makefile: 2 Versionen (wennauch deaktiviert)
+
+##OBJECTS=mypopen.c mypopen.h mytest.c
+OBJECTS=mypopen.c mypopen.h 
+
+##CFLAGS=-DDEBUG -Wall -pedantic -Werror -Wextra -Wstrict-prototypes -fno-common -g -O3 -std=gnu11
+CFLAGS=-DDEBUG -Wall -pedantic -Werror -Wextra -Wstrict-prototypes -fno-common -g -O3 -std=gnu11 -lpopentest
+
+-------------------------------------------
