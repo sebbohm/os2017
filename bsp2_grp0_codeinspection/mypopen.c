@@ -23,6 +23,10 @@
  /* include des eigenen headerfiles */
  #include "mypopen.h"
 
+ /*
+  *  ###14: <stdio.h> zwei mal inkludiert. Einmal in Source- einmal in Headerfile.
+  */
+ 
  #include <unistd.h>
  #include <stdio.h>
  #include <sys/types.h>
