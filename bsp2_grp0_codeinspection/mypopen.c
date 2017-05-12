@@ -196,6 +196,12 @@ int mypclose(FILE * stream)
 		errno = EINVAL;
 		return -1;
 	}
+	
+ /*
+  *  ###14: fclose() hat bei unsuccessful completion den Rückgabewert EOF, darauf hätte man ruhig direkt testen können.
+  *	 ###	given_fp = NULL setzen und child_pid = -1 setzen.		
+  */
+	
 	/* Das Schließen des Filestream hat nicht funktioniert */
 	if (fclose(stream) != 0)
 	{
