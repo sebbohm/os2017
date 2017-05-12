@@ -79,6 +79,10 @@
 	 pid_t pid;
 	 int tmp;
 
+ /*
+  *  ###14: Was passiert, wenn mehr als ein Buchstabe übergeben wird?
+  */	 
+	 
 	 /* Je nach Anforderung werden Steuervariablen gesetzt */
 	 if (strcmp(type,"r") == 0) direction = 0;
 	 else if (strcmp(type, "w")==0) direction = 1;
